@@ -44,17 +44,6 @@
     "url": "https://mercadolivre.com.br"
   },
   {
-    "id": 4,
-    "title": "Organizadores de Acrílico Transparentes",
-    "category": "organizacao",
-    "store": "amazon",
-    "price": "45,90",
-    "description": "Perfeitos para geladeiras, despensas e armários de banheiro.",
-    "rating": "4.8 (180)",
-    "img": "https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=600&q=80",
-    "url": "https://amazon.com.br"
-  },
-  {
     "id": 5,
     "title": "Luminária LED Minimalista",
     "category": "decoracao",
