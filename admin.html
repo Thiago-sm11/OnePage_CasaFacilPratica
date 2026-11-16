@@ -1,1 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin | casa.facilepratica</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+    <!-- NAVBAR ADMIN -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="fa-solid fa-house-heart text-danger me-2"></i>
+                <span style="color: var(--turquoise)">casa.</span><span style="color: var(--primary-pink-hover)">facilepratica</span>
+                <span class="badge bg-secondary ms-2 fs-6">Painel Admin</span>
+            </a>
+            <div class="ms-auto d-flex align-items-center gap-2">
+                <a href="index.html" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill">
+                    <i class="fa-solid fa-eye me-1"></i> Ver Site Público
+                </a>
+                <button id="logoutBtn" class="btn btn-sm btn-outline-danger rounded-pill d-none" onclick="logoutAdmin()">
+                    <i class="fa-solid fa-right-from-bracket me-1"></i> Sair
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- TELA DE LOGIN -->
+    <section id="loginSection" class="py-5" style="margin-top: 100px;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <div class="card border-0 shadow-lg rounded-4 p-4">
+                        <div class="text-center mb-4">
+                            <i class="fa-solid fa-lock text-info display-4 mb-2"></i>
+                            <h3 class="fw-bold">Área Restrita da Vânia</h3>
+                            <p class="text-muted small">Digite a senha para gerenciar os achadinhos</p>
+                        </div>
+                        <form id="adminLoginForm">
+                            <div class="mb-3">
+                                <label for="adminPassword" class="form-label fw-semibold">Senha de Acesso</label>
+                                <input type="password" class="form-control" id="adminPassword" placeholder="Digite a senha (padrão: 1234)" required>
+                            </div>
+                            <button type="submit" class="btn btn-custom-turquoise w-100 py-2">Entrar no Painel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAINEL DE GERENCIAMENTO (Escondido até fazer login) -->
+    <section id="adminDashboard" class="py-5 d-none" style="margin-top: 80px;">
+        <div class="container">
+            
+            <!-- CONFIGURAÇÃO DO TOKEN GITHUB -->
+            <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-body-tertiary">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div>
+                        <h5 class="fw-bold mb-1"><i class="fa-brands fa-github me-2"></i>Conexão com GitHub (Banco de Dados)</h5>
+                        <p class="text-muted small mb-0">Cole seu Personal Access Token do GitHub uma única vez para salvar alterações automaticamente no site.</p>
+                    </div>
+                    <div class="d-flex gap-2 flex-grow-1 flex-md-grow-0" style="min-width: 300px;">
+                        <input type="password" id="githubTokenInput" class="form-control form-control-sm" placeholder="ghp_seuTokenAqui...">
+                        <button class="btn btn-sm btn-dark rounded-pill px-3" onclick="saveGithubToken()">Salvar Token</button>
+                    </div>
+                </div>
+                <div id="tokenStatus" class="small mt-2"></div>
+            </div>
+
+            <div class="row g-4">
+                <!-- COLUNA ESQUERDA: FORMULÁRIO ADICIONAR / EDITAR -->
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 p-4 sticky-top" style="top: 100px;">
+                        <h5 class="fw-bold mb-3" id="formTitle">➕ Novo Achadinho</h5>
+                        
+                        <form id="adminProductForm">
+                            <input type="hidden" id="editProductId">
+                            
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold small">Título do Produto *</label>
+                                <input type="text" class="form-control" id="prodTitle" placeholder="Ex: Panela Elétrica" required>
+                            </div>
+
+                            <div class="row g-2 mb-3">
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold small">Categoria *</label>
+                                    <select class="form-select" id="prodCategory" required>
+                                        <option value="cozinha">Cozinha</option>
+                                        <option value="organizacao">Organização</option>
+                                        <option value="decoracao">Decoração</option>
+                                        <option value="eletro">Eletrodomésticos</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold small">Loja *</label>
+                                    <select class="form-select" id="prodStore" required>
+                                        <option value="shopee">Shopee</option>
+                                        <option value="shein">SHEIN</option>
+                                        <option value="mercadolivre">Mercado Livre</option>
+                                        <option value="amazon">Amazon</option>
+                                        <option value="temu">Temu</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row g-2 mb-3">
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold small">Preço (R$) *</label>
+                                    <input type="text" class="form-control" id="prodPrice" placeholder="79,90" required>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold small">Avaliação</label>
+                                    <input type="text" class="form-control" id="prodRating" value="5.0 (Novo)">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold small">Descrição Curta *</label>
+                                <textarea class="form-control" id="prodDesc" rows="2" placeholder="Ex: Super prático para o dia a dia..." required></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold small">Link da Imagem (URL) *</label>
+                                <input type="url" class="form-control" id="prodImg" placeholder="https://..." required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold small">Link de Afiliado *</label>
+                                <input type="url" class="form-control" id="prodUrl" placeholder="https://shope.ee/..." required>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-custom-turquoise" id="saveProdBtn">
+                                    <i class="fa-solid fa-cloud-arrow-up me-1"></i> Salvar e Publicar no Site
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary rounded-pill d-none" id="cancelEditBtn" onclick="resetAdminForm()">
+                                    Cancelar Edição
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- COLUNA DIREITA: LISTA DE PRODUTOS CADASTRADOS -->
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm rounded-4 p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="fw-bold mb-0">📦 Achadinhos Publicados (<span id="totalProductsCount">0</span>)</h5>
+                            <span id="syncStatusBadge" class="badge bg-success-subtle text-success">Sincronizado</span>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Produto</th>
+                                        <th>Loja / Cat.</th>
+                                        <th>Preço</th>
+                                        <th class="text-end">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminProductsTable">
+                                    <!-- Preenchido via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
