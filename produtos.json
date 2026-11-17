@@ -11,17 +11,6 @@
     "url": "https://www.amazon.com.br/Ichibansho-Figure-Pirates-Masterlise-Collectible/dp/B0D7QTQ5ZM?th=1"
   },
   {
-    "id": 3,
-    "title": "Fritadeira Elétrica Airfryer Digital",
-    "category": "eletro",
-    "store": "mercadolivre",
-    "price": "349,00",
-    "description": "Praticidade total no dia a dia. Painel touch e capacidade de 4L.",
-    "rating": "5.0 (540)",
-    "img": "https://images.unsplash.com/photo-1585515320310-259814833e62?auto=format&fit=crop&w=600&q=80",
-    "url": "https://mercadolivre.com.br"
-  },
-  {
     "id": 5,
     "title": "Luminária LED Minimalista",
     "category": "decoracao",
