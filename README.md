@@ -13,3 +13,7 @@ Minha intenção não foi apenas pedir para a IA criar um site, mas também orie
 
 ## Objetivo
 Criar uma página simples, organizada e fácil de usar, que ajude minha mãe a divulgar seus achadinhos e alcançar mais pessoas.
+
+## Extra
+Criei em meu projeto uma pagina extra para que o dono consiga acessar os itens de achadinho, para fazer alteração, excluir e adicionar novos
+
